@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
@@ -15,11 +16,11 @@ export default async function (req, res) {
     return;
   }
 
-  const animal = req.body.animal || '';
-  if (animal.trim().length === 0) {
+  const data = req.body.data || '';
+  if (data.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "Please enter a valid animal",
+        message: "Please enter a valid text",
       }
     });
     return;
@@ -28,8 +29,9 @@ export default async function (req, res) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generatePrompt(animal),
-      temperature: 0.6,
+      prompt: generatePrompt(data),
+      temperature: 0.2,
+		max_tokens: 1000,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
@@ -48,15 +50,21 @@ export default async function (req, res) {
   }
 }
 
-function generatePrompt(animal) {
-  const capitalizedAnimal =
-    animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-  return `Suggest three names for an animal that is a superhero.
+function generatePrompt(data) {
+  const capitalizedText =
+    data[0].toUpperCase() + data.slice(1).toLowerCase();
+  return `You are an expert in analyzing dating profiles you rate profiles on the scale from 1 - 10, 1 is the worst and 10 is the best.	Include a brief answer as to why you rated my profile the way you did and some examples on how they could add creativity and make it better.
+  		example profile: {styles.result}
+  		your rating: 1
+  		example profile: I'm a mom and ophthalmologist, and in my spare time I like going to museums and coffee shops. I'm creative and motivated. Let's connect!
+  		your rating: 3
+  		example profile: I am a sensitive person who likes to take care of others. But not to the point of being a doormat! I volunteer at the Museum of Modern Art whenever possible because I'm a frustrated artist who became an ophthalmologist. I still love to see art and paint with my daughter whenever possible. Also, I love to spend time off walking through new cities: street art and checking out hole in the wall coffee shops are my thing.
+  		your rating: 8
+  		example profile: Listen – I know I’m just a poor man’s Zooey Deschanel and I can’t even promise you love or sex or even affection, but I can guarantee: a very public Celine Dion serenade with elaborate arm choreography a deep-fake English accent if you’re American or absolutely nothing but shame if you’re British a medium-rare steak so nice it would make Ron Swanson weep a collection of useless pub trivia that is 72% accurate most of the time a conversation filled with fun and laughter
+		your rating: 9
 
-Animal: Cat
-Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Animal: Dog
-Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Animal: ${capitalizedAnimal}
-Names:`;
+
+			${capitalizedText}
+`
+
 }

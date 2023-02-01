@@ -22,9 +22,9 @@ This is an example pet name generator app used in the OpenAI API [quickstart tut
 
 5. Make a copy of the example environment variables file
 
-   On Linux systems: 
+   On Linux systems:
    ```bash
-   $ cp .env.example .env
+   $ cp .env .env
    ```
    On Windows:
    ```powershell

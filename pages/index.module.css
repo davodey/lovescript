@@ -64,4 +64,71 @@
 .main .result {
   font-weight: bold;
   margin-top: 40px;
+	max-width:720px;
+	margin: 20px auto;
+	padding: 10px;
+
+}
+
+
+.main .flex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main .textarea {
+	width: 500px;
+	height: 200px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	resize: none;
+	margin-bottom: 50px;
+}
+
+.main .textarea:focus {
+	border-color: #3399ff;
+	outline: none;
+}
+
+.main .submitButton {
+	position: relative;
+	display: inline-block;
+	padding: 12px 24px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	background-color: #10a37f;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+}
+
+.main .submitButton:hover {
+	background-color: #18c9a6;
+}
+
+.main .submitButton .spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
+.main .submitButton.loading .spinner {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #ccc;
+	border-top-color: #3399ff;
+	border-radius: 50%;
+	animation: spinner 1s ease-in-out infinite;
+}
+
+@keyframes spinner {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
 }
