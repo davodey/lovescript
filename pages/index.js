@@ -1,11 +1,13 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./index.module.css";
-import * as FullStory from '@fullstory/browser';
+import * as FullStory from '@fullstory/browser'
 export default function Home() {
   const [textInput, setTextInput] = useState("");
   const [result, setResult] = useState();
-	FullStory.init({ orgId: 'o-1H09SG-na1' });
+	useEffect(() => {
+		FullStory.init({ orgId: 'o-1H09SG-na1'});
+	}, []);
   async function onSubmit(event) {
     event.preventDefault();
     try {
@@ -35,7 +37,7 @@ export default function Home() {
 
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>Love Script Pro - The smart way to write your dating profile.</title>
         <link rel="icon" href="/dog.png" />
       </Head>
 
