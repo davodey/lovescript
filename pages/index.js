@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-
+import * as FullStory from '@fullstory/browser';
 export default function Home() {
   const [textInput, setTextInput] = useState("");
   const [result, setResult] = useState();
-
+	FullStory.init({ orgId: 'o-1H09SG-na1' });
   async function onSubmit(event) {
     event.preventDefault();
     try {
